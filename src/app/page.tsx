@@ -133,8 +133,8 @@ export default function HomePage() {
                     <p className="shrink-0 text-xs text-gray-400">7:00</p>
                   </div>
                   <p className="mt-0.5 text-sm text-gray-700">
-                    Ton résumé du jour : vague de chaleur exceptionnelle cette semaine, hausse du
-                    prix de l'énergie, rentrée scolaire, nouvel iPhone dévoilé, alerte pollution.
+                    Ton résumé du jour : piratage du fisc, hausse du prix de l'énergie, rentrée
+                    scolaire, nouvel iPhone dévoilé, alerte pollution dans plusieurs régions.
                   </p>
                 </div>
               </div>
@@ -143,28 +143,30 @@ export default function HomePage() {
             {/* Mockup d'un des 5 titres du résumé, avec image comme dans un vrai brief */}
             <div className="mt-4 overflow-hidden rounded-xl border border-gray-100">
               <img
-                src="/exemple-brief.jpg"
+                src="https://media1.woopic.com/api/v1/images/2275%2Factu%2Fmagic-articles-6medias%2Fce2%2F385%2Ff8e1991eaa54ece7be7d0a37a8%2Fce2385f8e1991eaa54ece7be7d0a37a8.jpg?quality=85&saveas=webp&saveasquality=70&facedetect=1"
                 alt=""
                 className="h-40 w-full object-cover sm:h-48"
               />
               <div className="p-4">
                 <p className="text-sm font-semibold text-gray-900">
-                  1. Une vague de chaleur exceptionnelle va toucher la France cette semaine
+                  1. Piratage du fisc : deux suspects interpellés après le vol des données de 678
+                  000 Français
                 </p>
                 <p className="mt-1.5 text-sm text-gray-600">
-                  Plusieurs départements sont placés en vigilance orange, avec des températures
-                  attendues au-delà de 38°C dès mercredi. Les autorités appellent à la prudence,
-                  notamment pour les personnes âgées et les jeunes enfants.
+                  Entre fin juin et fin juillet, le groupe de pirates "Zero Bytes" avait dérobé
+                  identités, adresses et informations fiscales auprès de la DGFiP. Un suspect de
+                  18 ans a été placé en détention provisoire, un mineur de 16 ans relâché après
+                  interrogatoire. Le fisc s'est de nouveau excusé pour ce vol de données.
                 </p>
                 <div className="mt-2 flex flex-wrap gap-3">
                   <span className="text-xs text-gray-400 underline">Franceinfo</span>
-                  <span className="text-xs text-gray-400 underline">Ouest-France</span>
+                  <span className="text-xs text-gray-400 underline">BFMTV</span>
                 </div>
               </div>
             </div>
             <p className="mt-3 text-xs italic text-gray-400">
-              Exemple illustratif — les vrais résumés et leurs photos sont générés chaque matin à
-              partir de l'actualité du jour.
+              Exemple basé sur une actualité réelle — les vrais résumés et leurs photos sont
+              générés chaque matin à partir de l'actualité du jour.
             </p>
           </div>
 

@@ -35,10 +35,6 @@ export default async function DigestDetailPage({ params }: { params: { date: str
         {stories.map((story, i) => (
           <li key={i}>
             {story.imageUrl && (
-              // Image d'illustration récupérée depuis l'article source.
-              // <img> classique plutôt que next/image : les domaines des médias
-              // varient trop pour être tous déclarés à l'avance.
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={story.imageUrl}
                 alt=""

@@ -74,7 +74,7 @@ export default function SubscribeButton() {
       <button
         onClick={subscribe}
         disabled={status === 'loading'}
-        className="rounded-full bg-accent px-6 py-3 text-white font-medium hover:opacity-90 disabled:opacity-50"
+        className="cta-pulse rounded-full bg-accent px-7 py-3.5 text-white font-medium shadow-lg shadow-blue-500/20 transition hover:scale-105 hover:opacity-90 disabled:opacity-50"
       >
         {status === 'loading' ? 'Activation…' : 'Activer les notifications'}
       </button>

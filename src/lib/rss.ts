@@ -7,12 +7,52 @@ export type Article = {
   source: string;
   publishedAt: string | null;
   contentSnippet: string;
+  imageUrl: string | null;
 };
 
-const parser = new Parser({
+const parser: Parser<any, any> = new Parser({
   timeout: 10_000,
   headers: { 'User-Agent': 'BrieflyBot/0.1 (+https://example.com)' },
+  customFields: {
+    item: [
+      ['media:content', 'mediaContent', { keepArray: true }],
+      ['media:thumbnail', 'mediaThumbnail'],
+    ],
+  },
 });
+
+/**
+ * Essaie de trouver une image d'illustration pour l'article, en regardant
+ * dans l'ordre les emplacements les plus courants dans les flux RSS français :
+ * media:content, media:thumbnail, l'enclosure standard, puis en dernier
+ * recours la première balise <img> trouvée dans le contenu HTML de l'article.
+ */
+function extractImage(item: any): string | null {
+  const mediaContent = item.mediaContent;
+  if (mediaContent) {
+    const first = Array.isArray(mediaContent) ? mediaContent[0] : mediaContent;
+    const url = first?.$?.url;
+    if (url) return url;
+  }
+
+  const thumbUrl = item.mediaThumbnail?.$?.url;
+  if (thumbUrl) return thumbUrl;
+
+  if (item.enclosure?.url && String(item.enclosure.type || '').startsWith('image')) {
+    return item.enclosure.url;
+  }
+  if (item.enclosure?.url && !item.enclosure.type) {
+    return item.enclosure.url;
+  }
+
+  const html = item['content:encoded'] || item.content || '';
+  if (typeof html === 'string') {
+    const match = html.match(/<img[^>]+src="([^"]+)"/i);
+    if (match) return match[1];
+  }
+
+  return null;
+}
 
 /**
  * Récupère tous les flux RSS configurés. Un flux qui échoue (timeout, RSS mort)
@@ -28,6 +68,7 @@ export async function fetchAllArticles(): Promise<Article[]> {
         source: feed.name,
         publishedAt: item.isoDate || item.pubDate || null,
         contentSnippet: (item.contentSnippet || item.content || '').slice(0, 500),
+        imageUrl: extractImage(item),
       }));
     })
   );

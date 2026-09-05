@@ -4,6 +4,7 @@ import { StoryCluster } from './scoring';
 export type DigestStory = {
   title: string;
   summary: string;
+  imageUrl: string | null;
   sources: { name: string; url: string }[];
 };
 
@@ -60,9 +61,12 @@ ${JSON.stringify(inputForModel, null, 2)}`;
 
   return parsed.map((item) => {
     const cluster = clusters[item.id];
+    // On prend la première image trouvée parmi les articles du sujet.
+    const imageUrl = cluster.articles.find((a) => a.imageUrl)?.imageUrl || null;
     return {
       title: item.title,
       summary: item.summary,
+      imageUrl,
       sources: cluster.articles.slice(0, 3).map((a) => ({ name: a.source, url: a.link })),
     };
   });

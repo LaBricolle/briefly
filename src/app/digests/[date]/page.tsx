@@ -34,13 +34,24 @@ export default async function DigestDetailPage({ params }: { params: { date: str
       <ol className="mt-8 space-y-8">
         {stories.map((story, i) => (
           <li key={i}>
+            {story.imageUrl && (
+              // Image d'illustration récupérée depuis l'article source.
+              // <img> classique plutôt que next/image : les domaines des médias
+              // varient trop pour être tous déclarés à l'avance.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={story.imageUrl}
+                alt=""
+                className="mb-3 h-48 w-full rounded-lg object-cover"
+              />
+            )}
             <h2 className="text-xl font-semibold">
               {i + 1}. {story.title}
             </h2>
             <p className="mt-2 text-gray-700">{story.summary}</p>
             <div className="mt-2 flex flex-wrap gap-3">
               {story.sources.map((s, j) => (
-                <a
+                
                   key={j}
                   href={s.url}
                   target="_blank"

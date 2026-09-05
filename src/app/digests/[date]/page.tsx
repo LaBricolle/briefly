@@ -47,7 +47,7 @@ export default async function DigestDetailPage({ params }: { params: { date: str
             <p className="mt-2 text-gray-700">{story.summary}</p>
             <div className="mt-2 flex flex-wrap gap-3">
               {story.sources.map((s, j) => (
-                
+                <a
                   key={j}
                   href={s.url}
                   target="_blank"

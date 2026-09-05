@@ -51,18 +51,18 @@ function SparkleIcon() {
 const howItWorks = [
   {
     icon: <NewspaperIcon />,
-    title: 'On surveille l’actu',
+    title: 'On surveille l\u2019actu',
     text: 'Chaque jour, plusieurs médias français sont passés au crible pour repérer les sujets qui reviennent le plus.',
   },
   {
     icon: <SparkleIcon />,
-    title: 'On résume à l’essentiel',
+    title: 'On résume à l\u2019essentiel',
     text: 'Les 5 sujets les plus importants sont résumés en quelques phrases claires, sans jargon.',
   },
   {
     icon: <BellIcon />,
     title: 'Tu reçois la notif',
-    text: 'Une seule notification chaque matin. Tu lis, tu sais l’essentiel, tu passes à autre chose.',
+    text: 'Une seule notification chaque matin. Tu lis, tu sais l\u2019essentiel, tu passes à autre chose.',
   },
 ];
 
@@ -70,17 +70,17 @@ const iosSteps = [
   {
     icon: <ShareIcon />,
     title: '1. Ouvre le menu Partager',
-    text: 'Dans Safari, appuie sur l’icône Partager (le carré avec la flèche) en bas de l’écran.',
+    text: 'Dans Safari, appuie sur l\u2019icône Partager (le carré avec la flèche) en bas de l\u2019écran.',
   },
   {
     icon: <AddSquareIcon />,
-    title: '2. Ajoute à l’écran d’accueil',
-    text: 'Fais défiler les options et choisis "Sur l’écran d’accueil", puis appuie sur "Ajouter".',
+    title: '2. Ajoute à l\u2019écran d\u2019accueil',
+    text: 'Fais défiler les options et choisis "Sur l\u2019écran d\u2019accueil", puis appuie sur "Ajouter".',
   },
   {
     icon: <BellIcon />,
     title: '3. Active les notifications',
-    text: 'Ouvre Briefly depuis l’icône sur ton écran d’accueil (pas depuis Safari), puis autorise les notifications.',
+    text: 'Ouvre Briefly depuis l\u2019icône sur ton écran d\u2019accueil (pas depuis Safari), puis autorise les notifications.',
   },
 ];
 
@@ -100,7 +100,7 @@ export default function HomePage() {
 
         <div className="relative mx-auto flex max-w-2xl flex-col items-center text-center">
           <img src="/logo.png" alt="Briefly" className="h-16 w-auto sm:h-20" />
-          <h1 className="mt-6 text-4xl font-bold sm:text-5xl">L’actu du jour, en 5 titres.</h1>
+          <h1 className="mt-6 text-4xl font-bold sm:text-5xl">L\u2019actu du jour, en 5 titres.</h1>
           <p className="mt-4 max-w-md text-lg text-gray-600">
             Chaque matin, une seule notification qui résume les 5 actualités les plus importantes
             en France. Pas de flux infini, pas de scroll.
@@ -108,6 +108,58 @@ export default function HomePage() {
 
           <div className="mt-8">
             <SubscribeButton />
+          </div>
+
+          <Link
+            href="/digests"
+            className="mt-4 text-sm font-medium text-accent underline underline-offset-2 hover:opacity-80"
+          >
+            Voir un exemple de résumé →
+          </Link>
+
+          {/* Exemple concret : à quoi ressemble la notification + le résumé reçu chaque jour */}
+          <div className="mt-10 w-full rounded-2xl border border-gray-200 bg-white p-6 text-left shadow-sm">
+            <p className="text-center text-xs font-semibold uppercase tracking-wider text-gray-400">
+              Exemple, à quoi ça ressemble
+            </p>
+
+            {/* Mockup notification iPhone */}
+            <div className="mx-auto mt-4 max-w-sm rounded-2xl border border-gray-200 bg-gray-50 p-3">
+              <div className="flex items-start gap-3">
+                <img src="/logo.png" alt="" className="mt-0.5 h-6 w-6 rounded-md object-contain" />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <p className="text-sm font-semibold text-gray-900">Briefly</p>
+                    <p className="shrink-0 text-xs text-gray-400">7:00</p>
+                  </div>
+                  <p className="mt-0.5 text-sm text-gray-700">
+                    Ton résumé du jour : budget 2026 adopté, tensions commerciales UE-Chine,
+                    accord sur le climat, victoire des Bleus, grève des transports jeudi.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Mockup d'un des 5 titres du résumé */}
+            <div className="mt-4 border-t border-gray-100 pt-4">
+              <p className="text-sm font-semibold text-gray-900">
+                1. Le budget 2026 adopté après un ultime vote serré à l\u2019Assemblée
+              </p>
+              <p className="mt-1.5 text-sm text-gray-600">
+                Le texte prévoit notamment une hausse des dépenses pour la santé et
+                l\u2019éducation, financée en partie par de nouvelles économies sur le
+                fonctionnement de l\u2019État. Le gouvernement évoque un compromis, l\u2019opposition
+                dénonce un texte insuffisant.
+              </p>
+              <div className="mt-2 flex flex-wrap gap-3">
+                <span className="text-xs text-gray-400 underline">Franceinfo</span>
+                <span className="text-xs text-gray-400 underline">Le Monde</span>
+              </div>
+              <p className="mt-3 text-xs italic text-gray-400">
+                Exemple illustratif — les vrais résumés sont générés chaque matin à partir de
+                l\u2019actualité du jour.
+              </p>
+            </div>
           </div>
 
           {/* Guide iOS, juste sous le bouton */}
@@ -133,7 +185,7 @@ export default function HomePage() {
       {/* Bandeau sources défilant */}
       <section className="border-y border-gray-100 bg-white py-5">
         <p className="mb-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-400">
-          L’actu passée au crible, chaque jour
+          L\u2019actu passée au crible, chaque jour
         </p>
         <div className="marquee-wrap marquee-mask overflow-hidden">
           <div className="marquee-track flex w-max items-center gap-10">

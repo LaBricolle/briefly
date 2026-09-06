@@ -14,6 +14,7 @@ self.addEventListener('push', (event) => {
       body: data.body,
       icon: '/icons/icon-192.png',
       badge: '/icons/icon-192.png',
+      image: data.image || undefined,
       data: { url: data.url || '/' },
     })
   );

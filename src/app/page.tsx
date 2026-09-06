@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import SubscribeButton from './subscribe-button';
 import { FEEDS } from '@/lib/feeds';
+import { getSupabaseAdmin } from '@/lib/supabase';
+import { DigestStory } from '@/lib/summarize';
+
+export const revalidate = 300; // 5 minutes
 
 function ShareIcon() {
   return (
@@ -84,9 +88,46 @@ const iosSteps = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = getSupabaseAdmin();
+  const { data: latestDigest } = await supabase
+    .from('digests')
+    .select('digest_date, stories')
+    .order('digest_date', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const topStory: DigestStory | null = latestDigest?.stories?.[0] ?? null;
+
   return (
     <main className="min-h-screen overflow-hidden bg-paper">
+      {/* Aujourd'hui : aperçu du dernier brief réel, tout en haut pour donner envie de cliquer */}
+      {latestDigest && topStory && (
+        <section className="px-6 pt-6">
+          <Link
+            href={`/digests/${latestDigest.digest_date}`}
+            className="group mx-auto flex max-w-2xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            {topStory.imageUrl && (
+              <img
+                src={topStory.imageUrl}
+                alt=""
+                className="h-28 w-28 shrink-0 object-cover sm:h-36 sm:w-36"
+              />
+            )}
+            <div className="flex min-w-0 flex-col justify-center p-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+                Le brief d&apos;aujourd&apos;hui
+              </p>
+              <p className="mt-1 line-clamp-2 font-semibold text-gray-900">{topStory.title}</p>
+              <p className="mt-1 text-sm text-accent underline-offset-2 group-hover:underline">
+                Lire les 5 actus du jour →
+              </p>
+            </div>
+          </Link>
+        </section>
+      )}
+
       {/* Hero */}
       <section className="relative px-6 pt-14 pb-16">
         {/* Blobs décoratifs en fond */}

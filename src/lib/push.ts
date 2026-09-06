@@ -18,8 +18,11 @@ function ensureConfigured() {
  * Envoie la notification "Briefly du jour" à tous les abonnés enregistrés.
  * Un abonnement expiré/invalide (410/404) est supprimé silencieusement plutôt
  * que de faire planter tout l'envoi.
+ *
+ * digestDate (format YYYY-MM-DD) sert à renvoyer l'utilisateur directement sur
+ * le brief du jour au clic, plutôt que sur la page d'accueil.
  */
-export async function notifyAllSubscribers(stories: DigestStory[]) {
+export async function notifyAllSubscribers(stories: DigestStory[], digestDate: string) {
   ensureConfigured();
   const supabase = getSupabaseAdmin();
 
@@ -27,13 +30,17 @@ export async function notifyAllSubscribers(stories: DigestStory[]) {
   if (error) throw error;
   if (!subscribers || subscribers.length === 0) return { sent: 0, removed: 0 };
 
+  const topStory = stories[0];
+  const otherCount = stories.length - 1;
+
   const payload = JSON.stringify({
     title: "Briefly — l'actu du jour",
-    body: stories
-      .slice(0, 3)
-      .map((s) => `• ${s.title}`)
-      .join('\n'),
-    url: '/',
+    body:
+      otherCount > 0
+        ? `${topStory.title} — et ${otherCount} autre${otherCount > 1 ? 's' : ''} actu${otherCount > 1 ? 's' : ''} du jour.`
+        : topStory.title,
+    image: topStory.imageUrl || undefined,
+    url: `/digests/${digestDate}`,
   });
 
   let sent = 0;

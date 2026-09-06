@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
 
     if (upsertError) throw upsertError;
 
-    const { sent, removed } = await notifyAllSubscribers(stories);
+    const { sent, removed } = await notifyAllSubscribers(stories, today);
 
     return NextResponse.json({
       ok: true,
